@@ -1,0 +1,113 @@
+# Set the directory we want to store zinit and plugins
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+# Download Zinit, if it's not there yet
+if [ ! -d "$ZINIT_HOME" ]; then
+   mkdir -p "$(dirname $ZINIT_HOME)"
+   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+# Source/Load zinit
+source "${ZINIT_HOME}/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+zinit ice atload'unalias zi'
+
+# Add in zsh plugins using Turbo mode (https://zdharma-continuum.github.io/zinit/wiki/Example-Minimal-Setup/)
+zinit wait lucid light-mode for \
+	atinit"zicompinit; zicdreplay" \
+		zdharma-continuum/fast-syntax-highlighting \
+	atload"_zsh_autosuggest_start" \
+		zsh-users/zsh-autosuggestions \
+	blockf atpull'zinit creinstall -q .' \
+		zsh-users/zsh-completions
+
+# Load starship theme
+# line 1: `starship` binary as command, from github release
+# line 2: starship setup at clone(create init.zsh, completion)
+# line 3: pull behavior same as clone, source init.zsh
+zinit ice as"command" from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" src"init.zsh"
+zinit light starship/starship
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+	zdharma-continuum/zinit-annex-as-monitor \
+	zdharma-continuum/zinit-annex-bin-gem-node \
+	zdharma-continuum/zinit-annex-patch-dl \
+	zdharma-continuum/zinit-annex-rust
+
+# Add in snippets using Turbo mode (https://zdharma-continuum.github.io/zinit/wiki/Example-Oh-My-Zsh-setup/)
+zinit wait lucid for \
+		OMZP::git \
+		OMZP::sudo \
+		OMZP::archlinux \
+		OMZP::command-not-found
+
+# Load completions
+autoload -Uz compinit && compinit
+_comp_options+=(globdots)
+
+# Need to load this after completions
+zinit light Aloxaf/fzf-tab
+
+zinit cdreplay -q
+
+# History
+HISTSIZE=5000
+HISTFILE="$ZDOTDIR/.zsh_history"
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+
+# Aliases
+source "$ZDOTDIR/alias.zsh"
+
+# Shell integrations
+eval "$(fzf --zsh)"
+eval "$(zoxide init zsh)"
+eval "$(mise activate zsh)"
+
+alias nvim-lazy="NVIM_APPNAME=lazyvim nvim"
+alias nvim-chad="NVIM_APPNAME=nvchad nvim"
+
+function nvims() {
+  items=("default" "lazyvim" "nvchad")
+  config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
+  if [[ -z $config ]]; then
+    echo "Nothing selected"
+    return 0
+  elif [[ $config == "default" ]]; then
+    config=""
+  fi
+  NVIM_APPNAME=$config nvim $@
+}
+
+# Keybindings
+bindkey -e
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+bindkey '^[w' kill-region
+
+# fzf setup
+export FZF_DEFAULT_OPTS='
+	--prompt="❯ "
+	--marker="❯"
+	--pointer="◆"
+'
