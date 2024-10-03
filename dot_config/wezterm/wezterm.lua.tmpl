@@ -1,11 +1,15 @@
 local wezterm = require("wezterm")
 
 return {
-	-- color_scheme = 'Catppuccin Mocha',
 	color_scheme = "Kanagawa (Gogh)",
 	enable_tab_bar = false,
 	enable_wayland = false,
+	{{- if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) }}
 	font = wezterm.font("JetBrainsMono NF"),
+	{{- end }}
+	{{- if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora")) }}
+	font = wezterm.font("JetBrains Mono"),
+	{{- end }}
 	window_padding = {
 		left = 0,
 		right = 0,
