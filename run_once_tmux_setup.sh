@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Also need: gitmux - https://github.com/arl/gitmux
 PLUGINS_DIR="$HOME/.config/tmux/plugins"
 
 if [ ! -d "$PLUGINS_DIR" ]; then
