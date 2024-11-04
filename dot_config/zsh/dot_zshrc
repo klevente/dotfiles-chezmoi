@@ -112,6 +112,9 @@ export FZF_DEFAULT_OPTS='
 # Aliases
 source "$ZDOTDIR/alias.zsh"
 
+# Path
+export PATH="$PATH:$HOME/.local/bin"
+
 # Source custom files
 if [ -d "$ZDOTDIR/custom" ]; then
   for config_file in $(ls $ZDOTDIR/custom/*.zsh | sort); do
