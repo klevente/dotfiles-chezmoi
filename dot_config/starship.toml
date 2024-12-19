@@ -7,6 +7,7 @@ $git_state\
 $git_status\
 $python\
 $nodejs\
+$rust\
 $fill\
 $cmd_duration\
 $line_break\
@@ -16,9 +17,9 @@ $character"""
 style = "blue"
 
 [character]
-success_symbol = "[λ](green)"
-error_symbol = "[λ](red)"
-vimcmd_symbol = "[ς](purple)"
+success_symbol = "[λ](bright-green)"
+error_symbol = "[λ](bright-red)"
+vimcmd_symbol = "[ς](bright-purple)"
 
 [git_branch]
 format = "[$branch]($style)"
@@ -49,7 +50,14 @@ symbol = ' '
 [nodejs]
 version_format = '$raw'
 format = '[$symbol($version)]($style)'
+style = "green"
 
 [python]
 format = "[$virtualenv]($style) "
 style = "bright-black"
+
+[rust]
+version_format = '$raw'
+style = "red"
+
+format = '[$symbol($version)]($style)'
