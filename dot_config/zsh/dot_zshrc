@@ -79,7 +79,7 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
-eval "$(mise activate zsh)"
+eval "$(mise activate zsh --shims)"
 
 alias nvim-lazy="NVIM_APPNAME=lazyvim nvim"
 alias nvim-chad="NVIM_APPNAME=nvchad nvim"

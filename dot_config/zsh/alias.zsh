@@ -2,7 +2,8 @@ alias t='tmux'
 alias vim='nvim'
 alias v='nvim'
 
-alias ls='ls -hN --color=auto --group-directories-first'
+# alias ls='ls -hN --color=auto --group-directories-first'
+alias ls='ls -hG'
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 

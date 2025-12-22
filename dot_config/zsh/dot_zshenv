@@ -15,7 +15,9 @@ export XDG_VIDEOS_DIR="$HOME/Videos"
 
 export EDITOR="nvim"
 export VISUAL="nvim"
-export TERMINAL="alacritty"
-export BROWSER="firefox"
+export TERMINAL="ghostty"
+export BROWSER="chrome"
 
 export LESSHISTFILE="$XDG_DATA_HOME/less/lesshst"
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
