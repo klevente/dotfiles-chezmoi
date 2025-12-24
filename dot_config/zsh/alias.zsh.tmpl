@@ -2,8 +2,12 @@ alias t='tmux'
 alias vim='nvim'
 alias v='nvim'
 
-# alias ls='ls -hN --color=auto --group-directories-first'
+{{ if eq .chezmoi.os "linux" -}}
+alias ls='ls -hN --color=auto --group-directories-first'
+{{ else if eq .chezmoi.os "darwin" -}}
 alias ls='ls -hG'
+{{ end -}}
+
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 

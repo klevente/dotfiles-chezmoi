@@ -20,4 +20,6 @@ export BROWSER="chrome"
 
 export LESSHISTFILE="$XDG_DATA_HOME/less/lesshst"
 
+{{ if eq .chezmoi.os "darwin" -}}
 eval "$(/opt/homebrew/bin/brew shellenv)"
+{{ end -}}
