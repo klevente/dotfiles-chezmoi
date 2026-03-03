@@ -2,6 +2,7 @@ macos-option-as-alt = left
 
 window-padding-color = extend-always
 
+# Go to window <n> in tmux: `ctrl+space <n>`
 keybind = super+one=text:\x00\x31
 keybind = super+two=text:\x00\x32
 keybind = super+three=text:\x00\x33
@@ -12,5 +13,22 @@ keybind = super+seven=text:\x00\x37
 keybind = super+eight=text:\x00\x38
 keybind = super+nine=text:\x00\x39
 
+# Go to previous window in tmux: `ctrl+space p`
 keybind = super+shift+h=text:\x00p
+# Go to next window in tmux: `ctrl+space n`
 keybind = super+shift+l=text:\x00n
+
+# Open new window in tmux: `ctrl+space c`
+keybind = super+t=text:\x00\x63
+
+# Close pane in tmux: `ctrl+space x` (custom keybind)
+keybind = super+w=text:\x00\x78
+
+# Switch to a window using tmux-fzf on Cmd+p in tmux it is Ctrl+b+w
+keybind = super+p=text:\x00\x54
+
+# Rename a tmux window on Cmd+r in tmux it is Ctrl+b+,
+keybind = super+r=text:\x00\x2c
+
+# Toggle pane zoom on Cmd+z in tmux it is Ctrl+b+z
+keybind = super+z=text:\x00\x7a
