@@ -2,4 +2,8 @@
 luzmo.zsh
 {{- end }}
 
+{{- if ne .chezmoi.hostname "mercury" }}
+cx.zsh
+{{- end }}
+
 flamegraph-rs.zsh
